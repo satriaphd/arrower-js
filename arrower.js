@@ -28,7 +28,7 @@ Arrower.drawClusterSVG = (function(cluster, height = 40) {
       }
       var pol = draw.polygon(Arrower.toPointString(Arrower.getArrowPoints(orf, cluster, height, scale)))
                   .fill(orf_color)
-                  .stroke({width: 1})
+                  .stroke({width: 2})
                   .addClass("arrower-orf");
       $(pol.node).mouseover({orf: orf}, function(handler){
         var start = handler.data.orf.start;
@@ -39,7 +39,7 @@ Arrower.drawClusterSVG = (function(cluster, height = 40) {
         handler.stopPropagation();
       });
       $(pol.node).mouseleave(function(handler){
-        $(handler.target).css("stroke-width", "1px");
+        $(handler.target).css("stroke-width", "2px");
         $(handler.target).css("stroke", "black");
         $("#" + Arrower.tooltip_id).css("display", "none");
       });
@@ -54,7 +54,7 @@ Arrower.drawClusterSVG = (function(cluster, height = 40) {
           }
           var dom = draw.polygon(Arrower.toPointString(Arrower.getDomainPoints(domain, orf, cluster, height, scale)))
                       .fill(color)
-                      .stroke({width: 1})
+                      .stroke({width: 0})
                       .addClass("arrower-domain");
           $(dom.node).mouseover({domain: domain}, function(handler){
             var start = handler.data.domain.start;
@@ -65,7 +65,7 @@ Arrower.drawClusterSVG = (function(cluster, height = 40) {
             handler.stopPropagation();
           });
           $(dom.node).mouseleave(function(handler){
-            $(handler.target).css("stroke-width", "1px");
+            $(handler.target).css("stroke-width", "0px");
             $(handler.target).css("stroke", "black");
             $("#" + Arrower.tooltip_id).css("display", "none");
           });
@@ -186,6 +186,14 @@ Arrower.getDomainPoints = (function(domain, orf, cluster, height, scale) {
                       :(i < 4 ?
                         (arrow_pts[3].y + getY(new_point.x))
                         :(arrow_pts[3].y - getY(new_point.x))));
+
+    // apply margin
+    if (i < 4) { // upper
+      new_point.y += (height / 20);
+    } else { // lower
+      new_point.y -= (height / 20);
+    }
+
     points.push(new_point);
   }
 
