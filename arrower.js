@@ -294,7 +294,7 @@ Arrower.showToolTip = (function(html, handler){
   }
   divTooltip.html(html);
   divTooltip.css("cursor", "default");
-  divTooltip.css("top", handler.pageY + "px");
-  divTooltip.css("left", handler.pageX + "px");
+  divTooltip.css("top", handler.clientY + "px");
+  divTooltip.css("left", handler.clientX + "px");
   divTooltip.css("display", "block");
 });
